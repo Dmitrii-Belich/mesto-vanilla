@@ -1,0 +1,7 @@
+@import url(./__line/header__line.css);
+@import url(./__logo/header__logo.css);
+
+.header {
+  width: 73.5%;
+  margin: 45px auto;
+}
