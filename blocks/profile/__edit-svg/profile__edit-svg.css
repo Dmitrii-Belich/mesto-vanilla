@@ -1,0 +1,13 @@
+.profile__edit-svg {
+  width: 10px;
+  height: 10px;
+  margin: 6px;
+}
+
+@media screen and (max-width: 619px) {
+ .profile__edit-svg {
+   max-width: 7.5px;
+   max-height: 7.5px;
+   margin: 4.25px;
+ } 
+}
