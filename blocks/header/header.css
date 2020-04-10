@@ -2,6 +2,12 @@
 @import url(./__logo/header__logo.css);
 
 .header {
-  width: 73.5%;
-  margin: 45px auto -1px;
+  max-width: 882px;
+  margin: 45px auto 0;
+}
+
+@media screen and (max-width: 619px) {
+  .header {
+    margin: 28px auto 0;
+  }
 }

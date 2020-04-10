@@ -4,3 +4,9 @@
   opacity: .7;
   margin: 36px 0 0;
 }
+
+@media screen and (max-width: 619px) {
+  .header__line {
+    margin: 28px 0 0;
+  }
+}

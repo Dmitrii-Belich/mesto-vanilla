@@ -3,3 +3,11 @@
   height: 22px;
   margin: 12px 62px;
 }
+
+@media screen and (max-width: 619px) {
+  .profile__add-svg {
+    width: 16px;
+    height: 16px;
+    margin: 15px 132px;
+  }
+}

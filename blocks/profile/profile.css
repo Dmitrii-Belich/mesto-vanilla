@@ -9,9 +9,23 @@
 @import url(./__add-svg/profile__add-svg.css);
 
 .profile {
-  width: 73.5%;
-  max-height: 120px;
-  margin: 40px auto 0;
+  max-width: 882px;
+
+  margin: 41px auto 0;
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 882px) {
+  .profile {
+    margin: 41px 19px 0;
+  }
+}
+
+@media screen and (max-width: 619px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+

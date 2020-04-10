@@ -5,3 +5,12 @@
   justify-self: flex-end;
   margin: 0 0 9px 1px;
 }
+
+
+@media screen and (max-width: 680px) {
+ .profile__subtitle {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+ }
+}

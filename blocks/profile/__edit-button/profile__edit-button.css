@@ -8,3 +8,11 @@
   background-color: black;
 
 }
+
+@media screen and (max-width: 619px) {
+ .profile__edit-button {
+   max-width: 18px;
+   max-height: 18px;
+   margin: 13px 0 0 7px;
+ } 
+}
