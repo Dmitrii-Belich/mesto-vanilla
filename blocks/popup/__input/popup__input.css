@@ -1,0 +1,13 @@
+@import url(./_el/popup__input_el_name.css);
+@import url(./_el/popup__input_el_subtitle.css);
+
+.popup__input {
+  font-weight: normal;
+font-size: 14px;
+line-height: 17px;
+margin: 30px auto 0;
+width: 83.26%;
+border: none;
+border-bottom: 1px solid rgba(0, 0, 0, .2);
+padding-bottom: 8px;
+}
