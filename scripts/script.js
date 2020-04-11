@@ -1,6 +1,7 @@
 let formElement = document.querySelector('.popup__container');
 let editButton = document.querySelector('.profile__edit-button');
-let closeButton = document.querySelector('.popup__exit-button')
+let closeButton = document.querySelector('.popup__exit-button');
+let like=document.querySelectorAll('.element__like');
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
@@ -20,7 +21,6 @@ function formSubmitHandler (evt) {
     } else {
       name.classList.add('profile__name_size_m');
     }
-
     let close = document.querySelector('.popup');
     close.classList.remove ('popup_display_opened');
 }
@@ -30,7 +30,6 @@ function formOpen (){
   let subtitle = document.querySelector('.profile__subtitle'); 
   let nameInput = document.querySelector('.popup_input__el_name');
   let jobInput = document.querySelector('.popup_input__el_subtitle');
-  console.log(name.textContent);
   nameInput.value = name.textContent;
   jobInput.value = subtitle.textContent;
   let open = document.querySelector('.popup');
@@ -41,6 +40,19 @@ function formClose () {
   let close = document.querySelector('.popup');
   close.classList.remove ('popup_display_opened');
 }
+
+function likeActive(event) {
+  if (event.toElement.src.indexOf('/images/like.svg') !== -1) {
+    event.toElement.setAttribute('src', './images/like-active.svg');
+  } else {
+    event.toElement.setAttribute('src', './images/like.svg');
+  }
+}
+
 formElement.addEventListener('submit', formSubmitHandler);
 editButton.addEventListener('click', formOpen);
 closeButton.addEventListener('click', formClose);
+for (let i = 0; i<like.length; i++) {
+like[i].addEventListener('click', likeActive);
+}
+

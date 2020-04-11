@@ -1,7 +1,13 @@
 .element__like {
+  display: block;
   position: absolute;
   width: 21px;
   height: 19px;
   bottom: 30px;
   right: 23px;
+  transition: all linear .2s;
+}
+
+.element__like:hover {
+  transform: scale(1.1);
 }
