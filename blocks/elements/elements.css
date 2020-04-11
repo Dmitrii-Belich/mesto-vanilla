@@ -13,3 +13,9 @@
     grid-gap: 20px 18px;
   }
 }
+
+@media screen and (max-width: 319px) {
+  .elements {
+    margin: 36px auto 0;
+  }
+}

@@ -11,6 +11,7 @@
     <img src="./images/logo.svg" alt="" class="header__logo">
     <div class="header__line"></div>
   </header>
+
   <main>
     <section class="profile">
       <div class="profile__inner-wrapper">
@@ -28,6 +29,17 @@
       </button>
 
     </section>
+    <div class="popup popup_display_hidden">
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__input popup_input__el_name" name="name" required value="Жак-Ив Кусто">
+        <input type="text" class="popup__input popup_input__el_subtitle" name="subtitle" required value="Исследователь океана">
+        <input type="submit" class="popup__save" value="Сохранить">
+        <img src="./images/add.svg" alt="" class="popup__exit">
+      </form>
+      <div class="popup__overlay"></div>
+    </div>
+
     <section class="elements">
       <div class="element">
         <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="" class="element__image">
@@ -61,6 +73,7 @@
       </div>
     </section>
   </main>
+  
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
 
