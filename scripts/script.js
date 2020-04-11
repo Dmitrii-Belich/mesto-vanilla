@@ -11,6 +11,16 @@ function formSubmitHandler (evt) {
     let subtitle = document.querySelector('.profile__subtitle');
     name.textContent = nameInput;
     subtitle.textContent = jobInput;
+    name.className = 'profile__name';
+    if (name.textContent.length > 25) {
+      name.classList.add('profile__name_size_xs');
+    }
+    else if (name.textContent.length > 20) {
+      name.classList.add('profile__name_size_s');
+    } else {
+      name.classList.add('profile__name_size_m');
+    }
+
     let close = document.querySelector('.popup');
     close.classList.remove ('popup_display_opened');
 }
@@ -18,10 +28,11 @@ function formSubmitHandler (evt) {
 function formOpen (){
   let name = document.querySelector('.profile__name');
   let subtitle = document.querySelector('.profile__subtitle'); 
-  let nameInput = document.querySelector('.popup_input__el_name').value;
-  let jobInput = document.querySelector('.popup_input__el_subtitle').value;
-  nameInput = name.textContent;
-  jobInput = subtitle.textContent;
+  let nameInput = document.querySelector('.popup_input__el_name');
+  let jobInput = document.querySelector('.popup_input__el_subtitle');
+  console.log(name.textContent);
+  nameInput.value = name.textContent;
+  jobInput.value = subtitle.textContent;
   let open = document.querySelector('.popup');
   open.classList.add ('popup_display_opened');
 }
