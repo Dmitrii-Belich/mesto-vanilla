@@ -6,6 +6,7 @@
 @import url(./__exit/popup__exit.css);
 @import url(./_display/popup_display_hidden.css);
 @import url(./_display/popup_display_opened.css);
+@import url(./__exit-button/popup__exit-button.css);
 
 .popup {
   position: fixed;

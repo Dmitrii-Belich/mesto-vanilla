@@ -1,8 +1,4 @@
 .popup__exit {
-  position: absolute;
-  top: -39px;
-  right: -37px;
-  z-index: 1;
   transform: rotate(45deg);
   width: 40.7px;
   height: 40.7px;
