@@ -1,10 +1,17 @@
 let formEditElement = document.querySelector('.popup_button_edit').querySelector('.popup__container');
 let editButton = document.querySelector('.profile__edit-button');
 let closeEditButton = document.querySelector('.popup_button_edit').querySelector('.popup__exit-button');
-let like = document.querySelectorAll('.element__like');
 let addButton = document.querySelector('.profile__add-button');
 let formAddElement = document.querySelector('.popup_button_add').querySelector('.popup__container');
 let closeAddButton = document.querySelector('.popup_button_add').querySelector('.popup__exit-button');
+
+
+function like() {
+  let like = document.querySelectorAll('.element__like');
+    for (let i = 0; i<like.length; i++) {
+      like[i].addEventListener('click', likeActive);
+    }
+  }
 
 function formEditOpen () {
   let name = document.querySelector('.profile__name');
@@ -61,8 +68,10 @@ function AddCard (file) {
   <img src="${file.target.result}" alt="" class="element__image">
   <h2 class="element__title">${title.value}</h2>
   <img src="./images/like.svg" alt="" class="element__like">
+  <img src="./images/close.svg" alt="" class="element__delete">
   </div>`);
-  formAddElement.reset();
+  //formAddElement.reset();
+  like();
 }
 
 function formAddSubmitHandler (event) {
@@ -81,12 +90,10 @@ function likeActive(event) {
   }
 }
 
+like();
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 editButton.addEventListener('click', formEditOpen);
 closeEditButton.addEventListener('click', formEditClose);
-for (let i = 0; i<like.length; i++) {
-like[i].addEventListener('click', likeActive);
-}
 addButton.addEventListener('click', formAddOpen);
 formAddElement.addEventListener('submit', formAddSubmitHandler);
 closeAddButton.addEventListener('click', formAddClose);
