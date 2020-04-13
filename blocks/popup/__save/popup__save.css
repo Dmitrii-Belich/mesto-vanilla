@@ -10,4 +10,9 @@
   line-height: 22px;
   text-align: center;
   outline: none;
+  transition: all linear .2s;
+}
+
+.popup__save:hover {
+  opacity: 0.8;
 }

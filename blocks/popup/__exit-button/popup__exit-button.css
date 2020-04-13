@@ -8,4 +8,9 @@
   padding: 0;
   margin: 0;
   outline: none;
+  transition: all linear .1s;
+}
+
+.popup__exit-button:hover {
+  opacity: .6;
 }

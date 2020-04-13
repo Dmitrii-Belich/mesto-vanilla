@@ -1,17 +1,6 @@
 let formEditElement = document.querySelector('.popup_button_edit').querySelector('.popup__container');
 let editButton = document.querySelector('.profile__edit-button');
 let closeEditButton = document.querySelector('.popup_button_edit').querySelector('.popup__exit-button');
-let addButton = document.querySelector('.profile__add-button');
-let formAddElement = document.querySelector('.popup_button_add').querySelector('.popup__container');
-let closeAddButton = document.querySelector('.popup_button_add').querySelector('.popup__exit-button');
-
-
-function like() {
-  let like = document.querySelectorAll('.element__like');
-    for (let i = 0; i<like.length; i++) {
-      like[i].addEventListener('click', likeActive);
-    }
-  }
 
 function formEditOpen () {
   let name = document.querySelector('.profile__name');
@@ -50,50 +39,8 @@ function formEditSubmitHandler (evt) {
     formEditClose();
 }
 
-function formAddOpen () {
-  let open = document.querySelector('.popup_button_add');
-  open.classList.add ('popup_display_opened');
-}
 
-function formAddClose () {
-  let close = document.querySelector('.popup_button_add');
-  close.classList.remove ('popup_display_opened');
-}
-
-function AddCard (file) {
-  let title = document.querySelector('.popup__input_el_title');
-  console.log(title);
-  let elements = document.querySelector('.elements');
-  elements.insertAdjacentHTML('beforeend', `<div class="element">
-  <img src="${file.target.result}" alt="" class="element__image">
-  <h2 class="element__title">${title.value}</h2>
-  <img src="./images/like.svg" alt="" class="element__like">
-  <img src="./images/close.svg" alt="" class="element__delete">
-  </div>`);
-  //formAddElement.reset();
-  like();
-}
-
-function formAddSubmitHandler (event) {
-  event.preventDefault();
-  let file = document.querySelector('.popup__input_el_image');
-  var fr = new FileReader();
-  fr.readAsDataURL(file.files[0]);
-  fr.addEventListener("load", AddCard);
-}
-
-function likeActive(event) {
-  if (event.toElement.src.indexOf('/images/like.svg') !== -1) {
-    event.toElement.setAttribute('src', './images/like-active.svg');
-  } else {
-    event.toElement.setAttribute('src', './images/like.svg');
-  }
-}
-
-like();
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 editButton.addEventListener('click', formEditOpen);
 closeEditButton.addEventListener('click', formEditClose);
-addButton.addEventListener('click', formAddOpen);
-formAddElement.addEventListener('submit', formAddSubmitHandler);
-closeAddButton.addEventListener('click', formAddClose);
+

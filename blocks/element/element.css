@@ -2,6 +2,7 @@
 @import url(./__image/element__image.css);
 @import url(./__title/element__title.css);
 @import url(./__delete/element__delete.css);
+@import url(./_display/element_display_none.css);
 
 .element {
   background-color: #fff;
@@ -11,7 +12,7 @@
   border-color: black;
   overflow: hidden;
   margin: 0 auto;
-  transition: all linear .1s;
+  transition: all linear .2s;
 }
 
 .element:hover {

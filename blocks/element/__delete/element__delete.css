@@ -1,13 +1,15 @@
+@import url(./_display/element__delete_display_hide.css);
+@import url(./_display/element__delete_display_show.css);
+
 .element__delete {
   position: absolute;
-  padding: 20px 20px 320px 242px;
+  top: 20px;
+  right: 20px;
   width: 20px;
   height: 20px;
-  top: 0;
-  right: 0;
-  opacity: 0;
+  transition: all linear .2s;
 }
 
 .element__delete:hover {
-  opacity: 1;
+  transform: scale(1.2);
 }
