@@ -19,25 +19,23 @@ function formEditClose () {
 }
 
 function formEditSubmitHandler (evt) {
-    evt.preventDefault();
-    const nameInput = document.querySelector('.popup_input__el_name').value;
-    const jobInput = document.querySelector('.popup_input__el_subtitle').value;
-    const name = document.querySelector('.profile__name');
-    const subtitle = document.querySelector('.profile__subtitle');
-    name.textContent = nameInput;
-    subtitle.textContent = jobInput;
-    name.className = 'profile__name';
-    if (name.textContent.length > 25) {
-      name.classList.add('profile__name_size_xs');
-    }
-    else if (name.textContent.length > 20) {
-      name.classList.add('profile__name_size_s');
-    } else {
-      name.classList.add('profile__name_size_m');
-    }
-    formEditClose();
+  evt.preventDefault();
+  const nameInput = document.querySelector('.popup_input__el_name').value;
+  const jobInput = document.querySelector('.popup_input__el_subtitle').value;
+  const name = document.querySelector('.profile__name');
+  const subtitle = document.querySelector('.profile__subtitle');
+  name.textContent = nameInput;
+  subtitle.textContent = jobInput;
+  name.className = 'profile__name';
+  if (name.textContent.length > 25) {
+    name.classList.add('profile__name_size_xs');
+  } else if (name.textContent.length > 20) {
+    name.classList.add('profile__name_size_s');
+  } else {
+    name.classList.add('profile__name_size_m');
+  }
+  formEditClose();
 }
-
 
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 editButton.addEventListener('click', formEditOpen);

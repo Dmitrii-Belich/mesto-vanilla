@@ -6,8 +6,8 @@
 
 @media screen and (max-width: 930px) {
   .profile__name_size_xs {
-font-size: 10px;
-line-height: 42px;
-margin: 0 0 0 5px;
+    font-size: 10px;
+    line-height: 42px;
+    margin: 0 0 0 5px;
   }
 }

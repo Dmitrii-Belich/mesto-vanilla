@@ -9,9 +9,9 @@
 
 @media screen and (max-width: 680px) {
  .profile__subtitle {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
  }
 }
 

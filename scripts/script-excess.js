@@ -1,6 +1,7 @@
 const addButton = document.querySelector('.profile__add-button');
 const formAddElement = document.querySelector('.popup_button_add').querySelector('.popup__container');
 const closeAddButton = document.querySelector('.popup_button_add').querySelector('.popup__exit-button');
+
 function like() {
   const like = document.querySelectorAll('.element__like');
     for (let i = 0; i<like.length; i++) {
@@ -33,16 +34,16 @@ function AddCard (file) {
     }
   }
   elements.insertAdjacentHTML('beforeend', `<div class="element">
-    <img src="${file.target.result}" alt="" class="element__image">
+    <img src="${file.target.result}" alt="Изображение карточки" class="element__image">
     <h2 class="element__title">${newTitle}</h2>
-    <img src="./images/like.svg" alt="" class="element__like">
-    <img src="./images/close.svg" alt="" class="element__delete element__delete_display_hide">
+    <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
+    <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
     </div>`);
   formAddElement.reset();
   like();
   del ();
   delButton();
-  }
+}
   
 function formAddSubmitHandler (event) {
   event.preventDefault();
