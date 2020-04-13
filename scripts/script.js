@@ -1,30 +1,29 @@
-let formEditElement = document.querySelector('.popup_button_edit').querySelector('.popup__container');
-let editButton = document.querySelector('.profile__edit-button');
-let closeEditButton = document.querySelector('.popup_button_edit').querySelector('.popup__exit-button');
+const formEditElement = document.querySelector('.popup_button_edit').querySelector('.popup__container');
+const editButton = document.querySelector('.profile__edit-button');
+const closeEditButton = document.querySelector('.popup_button_edit').querySelector('.popup__exit-button');
 
 function formEditOpen () {
-  let name = document.querySelector('.profile__name');
-  let subtitle = document.querySelector('.profile__subtitle'); 
-  let nameInput = document.querySelector('.popup_input__el_name');
-  let jobInput = document.querySelector('.popup_input__el_subtitle');
+  const name = document.querySelector('.profile__name');
+  const subtitle = document.querySelector('.profile__subtitle'); 
+  const nameInput = document.querySelector('.popup_input__el_name');
+  const jobInput = document.querySelector('.popup_input__el_subtitle');
   nameInput.value = name.textContent;
   jobInput.value = subtitle.textContent;
-  let open = document.querySelector('.popup_button_edit');
+  const open = document.querySelector('.popup_button_edit');
   open.classList.add ('popup_display_opened');
 }
 
 function formEditClose () {
-  let close = document.querySelector('.popup_button_edit');
+  const close = document.querySelector('.popup_button_edit');
   close.classList.remove ('popup_display_opened');
 }
 
 function formEditSubmitHandler (evt) {
     evt.preventDefault();
-    let nameInput = document.querySelector('.popup_input__el_name').value;
-    let jobInput = document.querySelector('.popup_input__el_subtitle').value;
-    console.log(nameInput, jobInput);
-    let name = document.querySelector('.profile__name');
-    let subtitle = document.querySelector('.profile__subtitle');
+    const nameInput = document.querySelector('.popup_input__el_name').value;
+    const jobInput = document.querySelector('.popup_input__el_subtitle').value;
+    const name = document.querySelector('.profile__name');
+    const subtitle = document.querySelector('.profile__subtitle');
     name.textContent = nameInput;
     subtitle.textContent = jobInput;
     name.className = 'profile__name';

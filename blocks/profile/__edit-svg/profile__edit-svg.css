@@ -4,7 +4,7 @@
   margin: 6px;
 }
 
-@media screen and (max-width: 619px) {
+@media screen and (max-width: 880px) {
  .profile__edit-svg {
    max-width: 7.5px;
    max-height: 7.5px;
