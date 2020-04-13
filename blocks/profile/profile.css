@@ -10,13 +10,12 @@
 
 .profile {
   max-width: 882px;
-
   margin: 39px auto 0;
   display: flex;
   justify-content: space-between;
 }
 
-@media screen and (max-width: 882px) {
+@media screen and (max-width: 930px) {
   .profile {
     margin: 41px 19px 0;
   }
