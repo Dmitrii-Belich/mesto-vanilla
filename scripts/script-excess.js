@@ -44,7 +44,7 @@ function AddCard (imgFile) {
       <button class="card__like card__like_mode_unactive"></button>
       <button class="card__delete card__delete_display_hide"></button>
     </div>`);
-  //formAddElement.reset();
+  formAddElement.reset();
   likeButtons = document.querySelectorAll('.card__like');
   deleteButton = document.querySelectorAll('.card__delete');
   img = document.querySelectorAll('.card__image');
