@@ -1,27 +1,31 @@
 const addButton = document.querySelector('.profile__add-button');
-const formAddElement = document.querySelector('.popup_button_add').querySelector('.popup__container');
-const closeAddButton = document.querySelector('.popup_button_add').querySelector('.popup__exit-button');
+const addForm = document.querySelector('.popup_button_add');
+const formAddcard = addForm.querySelector('.popup__container');
+const closeAddButton = addForm.querySelector('.popup__exit-button');
+const title = document.querySelector('.popup__input_el_title');
+const cardContainer = document.querySelector('.card__container');
+const imgFile = document.querySelector('.popup__input_el_image');
+const fileReader = new FileReader();
+let likeButtons = document.querySelectorAll('.card__like');
+let deleteButton = document.querySelectorAll('.card__delete');
+let img = document.querySelectorAll('.card__image');
+let cardTitle = document.querySelectorAll('.card__title');
 
 function like() {
-  const like = document.querySelectorAll('.element__like');
-    for (let i = 0; i<like.length; i++) {
-      like[i].addEventListener('click', likeActive);
+    for (let i = 0; i<likeButtons.length; i++) {
+      likeButtons[i].addEventListener('click', likeActive);
   }
 }
 
 function formAddOpen () {
-  const open = document.querySelector('.popup_button_add');
-  open.classList.add ('popup_display_opened');
+  addForm.classList.add ('popup_display_opened');
 }
   
 function formAddClose () {
-  const close = document.querySelector('.popup_button_add');
-  close.classList.remove ('popup_display_opened');
+  addForm.classList.remove ('popup_display_opened');
 }
   
-function AddCard (file) {
-  const title = document.querySelector('.popup__input_el_title');
-  const elements = document.querySelector('.elements');
+function AddCard (imgFile) {
   let newTitle ='';
   for (let i = 0; i < title.value.length; i++) {
     if (i < 13) {
@@ -33,79 +37,74 @@ function AddCard (file) {
       }
     }
   }
-  elements.insertAdjacentHTML('beforeend', `<div class="element">
-    <img src="${file.target.result}" alt="Изображение карточки" class="element__image">
-    <h2 class="element__title">${newTitle}</h2>
-    <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-    <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+  cardContainer.insertAdjacentHTML ('beforeend', `
+    <div class="card">
+      <img src="${imgFile.target.result}" alt="Изображение карточки" class="card__image">
+      <h2 class="card__title">${newTitle}</h2>
+      <button class="card__like card__like_mode_unactive"></button>
+      <button class="card__delete card__delete_display_hide"></button>
     </div>`);
-  formAddElement.reset();
-  like();
-  del ();
+  //formAddElement.reset();
+  likeButtons = document.querySelectorAll('.card__like');
+  deleteButton = document.querySelectorAll('.card__delete');
+  img = document.querySelectorAll('.card__image');
+  cardTitle = document.querySelectorAll('.card__title');
   delButton();
+  del();
+  like();
 }
   
 function formAddSubmitHandler (event) {
   event.preventDefault();
-  const file = document.querySelector('.popup__input_el_image');
-  const fr = new FileReader();
-  fr.readAsDataURL(file.files[0]);
-  fr.addEventListener("load", AddCard);
+  fileReader.readAsDataURL(imgFile.files[0]);
+  fileReader.addEventListener("load", AddCard);
 }
   
 function likeActive(event) {
-  if (event.toElement.src.indexOf('/images/like.svg') !== -1) {
-    event.toElement.setAttribute('src', './images/like-active.svg');
-  } else {
-    event.toElement.setAttribute('src', './images/like.svg');
-  }
+  event.toElement.classList.toggle ("card__like_mode_unactive");
+  event.toElement.classList.toggle ("card__like_mode_active");
 }
   
 function destroyEl (event) {
-  event.toElement.parentElement.classList.add ('element_display_none');
+  event.toElement.parentElement.remove();
 }
   
 function del () {
-  const button = document.querySelectorAll('.element__delete');
-  for (let i =0; i < button.length; i++) {
-    button[i].addEventListener('click', destroyEl);
+  for (let i =0; i < deleteButton.length; i++) {
+    deleteButton[i].addEventListener('click', destroyEl);
   }
 }
   
 function delButtonHide(event) {
   if (event.isTrusted === true) {
-    event.fromElement.parentElement.querySelector('.element__delete').className = 'element__delete';
-    event.fromElement.parentElement.querySelector('.element__delete').classList.add ('element__delete_display_hide');
+    event.fromElement.parentElement.querySelector('.card__delete').className = 'card__delete';
+    event.fromElement.parentElement.querySelector('.card__delete').classList.add ('card__delete_display_hide');
   } 
 }
   
 function delButtonShow(event) {
   if (event.isTrusted === true) {
-    event.toElement.parentElement.querySelector('.element__delete').className = 'element__delete';
-    event.toElement.parentElement.querySelector('.element__delete').classList.add ('element__delete_display_show');    
+    event.toElement.parentElement.querySelector('.card__delete').className = 'card__delete';
+    event.toElement.parentElement.querySelector('.card__delete').classList.add ('card__delete_display_show');    
   } 
 }
   
 function delButton () { 
-  const img = document.querySelectorAll('.element__image');
-  const title = document.querySelectorAll('.element__title');
-  const like = document.querySelectorAll('.element__like');
-  const del = document.querySelectorAll('.element__delete');
   for (let i =0; i < img.length; i++) {
     img[i].addEventListener('mouseover', delButtonShow);
     img[i].addEventListener('mouseout', delButtonHide);
   }
-  for (let i =0; i < title.length; i++) {
-    title[i].addEventListener('mouseover', delButtonShow);
-    title[i].addEventListener('mouseout', delButtonHide);
+  for (let i =0; i < cardTitle.length; i++) {
+    cardTitle[i].addEventListener('mouseover', delButtonShow);
+    cardTitle[i].addEventListener('mouseout', delButtonHide);
   }
-  for (let i =0; i < like.length; i++) {
-    like[i].addEventListener('mouseover', delButtonShow);
-    like[i].addEventListener('mouseout', delButtonHide);
+  for (let i =0; i < likeButtons.length; i++) {
+    likeButtons[i].addEventListener('mouseover', delButtonShow);
+    likeButtons[i].addEventListener('mouseout', delButtonHide);
   }
-  for (let i =0; i < del.length; i++) {
-    del[i].addEventListener('mouseover', delButtonShow);
-    del[i].addEventListener('mouseout', delButtonHide);
+  for (let i =0; i < deleteButton.length; i++) {
+    deleteButton[i].addEventListener('mouseover', delButtonShow);
+    deleteButton[i].addEventListener('mouseout', delButtonHide);
   }
 }
   
@@ -113,5 +112,5 @@ delButton();
 del();
 like();
 addButton.addEventListener('click', formAddOpen);
-formAddElement.addEventListener('submit', formAddSubmitHandler);
+formAddcard.addEventListener('submit', formAddSubmitHandler);
 closeAddButton.addEventListener('click', formAddClose);

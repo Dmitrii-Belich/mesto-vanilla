@@ -9,25 +9,20 @@
 <body class="page">
   <header class="header">
     <img src="./images/logo.svg" alt="Логотип" class="header__logo">
-    <div class="header__line"></div>
   </header>
   <main>
     <section class="profile">
       <div class="profile__inner-wrapper profile__inner-wrapper_place_profile">
-        <img src="./images/jack.jpg" alt="Аватар" class="profile__icon">
+        <img src="./images/jack.jpg" alt="Аватар" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__inner-wrapper profile__inner-wrapper_place_name">
             <h1 class="profile__name profile__name_size_m">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button">
-              <img src="./images/edit.svg" alt="Редактировать" class="profile__edit-svg">
-            </button>
+            <button class="profile__edit-button"></button>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-      <button class="profile__add-button">
-        <img src="./images/add.svg" alt="Добавить" class="profile__add-svg">
-      </button>
+      <button class="profile__add-button"></button>
     </section>
 
     <div class="popup popup_button_edit popup_display_hidden">
@@ -36,9 +31,7 @@
         <input type="text" class="popup__input popup_input__el_name" name="name" required maxlength="40">
         <input type="text" class="popup__input popup_input__el_subtitle" name="subtitle" required maxlength="30">
         <input type="submit" class="popup__save" value="Сохранить">
-        <button type="button" class="popup__exit-button">
-          <img src="./images/add.svg" alt="Выход" class="popup__exit">
-        </button>
+        <button type="button" class="popup__exit-button"></button>
       </form>
       <div class="popup__overlay"></div>
     </div>
@@ -47,51 +40,49 @@
       <form class="popup__container">
         <h2 class="popup__title">Добавить место</h2>
         <input type="text" class="popup__input popup__input_el_title" name="title" placeholder="Название места" required>
-        <input type="file" class="popup__input popup__input_el_image" name="image" placeholder="Изображение места" accept="image/jpeg , image/png" required>
+        <input type="file" class="popup__input popup__input_el_image" name="image" accept="image/jpeg , image/png" required>
         <input type="submit" class="popup__save" value="Добавить">
-        <button type="button" class="popup__exit-button">
-          <img src="./images/add.svg" alt="Выход" class="popup__exit">
-        </button>
+        <button type="button" class="popup__exit-button"></button>
       </form>
       <div class="popup__overlay"></div>
     </div>
 
-    <section class="elements">
-      <div class="element">
-        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Изображение карточки" class="element__image">
-        <h2 class="element__title">Карачаевск</h2>
-        <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-        <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+    <section class="card__container">
+      <div class="card">
+        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Изображение карточки" class="card__image">
+        <h2 class="card__title">Карачаевск</h2>
+        <button class="card__like card__like_mode_unactive"></button>
+        <button class="card__delete card__delete_display_hide"></button>
       </div>
-      <div class="element">
-        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Изображение карточк" class="element__image">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-        <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+      <div class="card">
+        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Изображение карточки" class="card__image">
+        <h2 class="card__title">Гора Эльбрус</h2>
+        <button class="card__like card__like_mode_unactive"></button>
+        <button class="card__delete card__delete_display_hide"></button>
       </div>
-      <div class="element">
-        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Изображение карточк" class="element__image">
-        <h2 class="element__title">Домбай</h2>
-        <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-        <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+      <div class="card">
+        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Изображение карточки" class="card__image">
+        <h2 class="card__title">Домбай</h2>
+        <button class="card__like card__like_mode_unactive"></button>
+        <button class="card__delete card__delete_display_hide"></button>
       </div>
-      <div class="element">
-        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Изображение карточк" class="element__image">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-        <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+      <div class="card">
+        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Изображение карточки" class="card__image">
+        <h2 class="card__title">Гора Эльбрус</h2>
+        <button class="card__like card__like_mode_unactive"></button>
+        <button class="card__delete card__delete_display_hide"></button>
       </div>
-      <div class="element">
-        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Изображение карточк" class="element__image">
-        <h2 class="element__title">Домбай</h2>
-        <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-        <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+      <div class="card">
+        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Изображение карточки" class="card__image">
+        <h2 class="card__title">Домбай</h2>
+        <button class="card__like card__like_mode_unactive"></button>
+        <button class="card__delete card__delete_display_hide"></button>
       </div>
-      <div class="element">
-        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Изображение карточк" class="element__image">
-        <h2 class="element__title">Карачаево-Ч...</h2>
-        <img src="./images/like.svg" alt="Иконка лайка" class="element__like">
-        <img src="./images/close.svg" alt="Иконка закрыть" class="element__delete element__delete_display_hide">
+      <div class="card">
+        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Изображение карточки" class="card__image">
+        <h2 class="card__title">Карачаево-Ч...</h2>
+        <button class="card__like card__like_mode_unactive"></button>
+        <button class="card__delete card__delete_display_hide"></button>
       </div>
     </section>
   </main>
