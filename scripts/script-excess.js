@@ -1,6 +1,6 @@
 const addButton = document.querySelector('.profile__add-button');
 const addForm = document.querySelector('.popup_button_add');
-const formAddcard = addForm.querySelector('.popup__container');
+const formAddCard = addForm.querySelector('.popup__container');
 const closeAddButton = addForm.querySelector('.popup__exit-button');
 const title = document.querySelector('.popup__input_el_title');
 const cardContainer = document.querySelector('.card__container');
@@ -44,7 +44,7 @@ function AddCard (imgFile) {
       <button class="card__like card__like_mode_unactive"></button>
       <button class="card__delete card__delete_display_hide"></button>
     </div>`);
-  //formAddElement.reset();
+  formAddCard.reset();
   likeButtons = document.querySelectorAll('.card__like');
   deleteButton = document.querySelectorAll('.card__delete');
   img = document.querySelectorAll('.card__image');
@@ -112,5 +112,5 @@ delButton();
 del();
 like();
 addButton.addEventListener('click', formAddOpen);
-formAddcard.addEventListener('submit', formAddSubmitHandler);
+formAddCard.addEventListener('submit', formAddSubmitHandler);
 closeAddButton.addEventListener('click', formAddClose);
