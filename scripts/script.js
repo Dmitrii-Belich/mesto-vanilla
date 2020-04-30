@@ -5,17 +5,51 @@ const name = document.querySelector('.profile__name');
 const subtitle = document.querySelector('.profile__subtitle'); 
 const nameInput = document.querySelector('.popup_input__el_name');
 const jobInput = document.querySelector('.popup_input__el_subtitle');
-const open = document.querySelector('.popup_button_edit');
-const close = document.querySelector('.popup_button_edit');
+const editForm = document.querySelector('.popup_button_edit');
+const cardTemplate = document.querySelector('#card').content;
+const cardContainer = document.querySelector('.card__container');
+const initialCards = [
+  {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function createCard (card) {
+  const newCard = cardTemplate.cloneNode(true);
+  newCard.querySelector('.card__image').src = card.link;
+  newCard.querySelector('.card__title').textContent = card.name;
+  cardContainer.append(newCard);
+}
 
 function formEditOpen () {
   nameInput.value = name.textContent;
   jobInput.value = subtitle.textContent;
-  open.classList.add ('popup_display_opened');
+  editForm.classList.add ('popup_display_opened');
 }
 
 function formEditClose () {
-  close.classList.remove ('popup_display_opened');
+  editForm.classList.remove ('popup_display_opened');
 }
 
 function formEditSubmitHandler (evt) {
@@ -33,7 +67,126 @@ function formEditSubmitHandler (evt) {
   formEditClose();
 }
 
+initialCards.forEach(createCard);
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 editButton.addEventListener('click', formEditOpen);
 closeEditButton.addEventListener('click', formEditClose);
 
+/* const addButton = document.querySelector('.profile__add-button');
+const addForm = document.querySelector('.popup_button_add');
+const formAddCard = addForm.querySelector('.popup__container');
+const closeAddButton = addForm.querySelector('.popup__exit-button');
+const title = document.querySelector('.popup__input_el_title');
+const cardContainer = document.querySelector('.card__container');
+const imgFile = document.querySelector('.popup__input_el_image');
+const fileReader = new FileReader();
+let likeButtons = document.querySelectorAll('.card__like');
+let deleteButton = document.querySelectorAll('.card__delete');
+let img = document.querySelectorAll('.card__image');
+let cardTitle = document.querySelectorAll('.card__title'); 
+
+
+function like() {
+    for (let i = 0; i<likeButtons.length; i++) {
+      likeButtons[i].addEventListener('click', likeActive);
+  }
+}
+
+function formAddOpen () {
+  addForm.classList.add ('popup_display_opened');
+}
+  
+function formAddClose () {
+  addForm.classList.remove ('popup_display_opened');
+}
+  
+function AddCard (imgFile) {
+  let newTitle ='';
+  for (let i = 0; i < title.value.length; i++) {
+    if (i < 13) {
+      newTitle+=title.value[i];
+    } else {
+      newTitle+='...';
+      if (i === 13) {
+        break;
+      }
+    }
+  }
+  cardContainer.insertAdjacentHTML ('beforeend', `
+    <div class="card">
+      <img src="${imgFile.target.result}" alt="Изображение карточки" class="card__image">
+      <h2 class="card__title">${newTitle}</h2>
+      <button class="card__like card__like_mode_unactive"></button>
+      <button class="card__delete card__delete_display_hide"></button>
+    </div>`);
+  formAddCard.reset();
+  likeButtons = document.querySelectorAll('.card__like');
+  deleteButton = document.querySelectorAll('.card__delete');
+  img = document.querySelectorAll('.card__image');
+  cardTitle = document.querySelectorAll('.card__title');
+  delButton();
+  del();
+  like();
+}
+  
+function formAddSubmitHandler (event) {
+  event.preventDefault();
+  fileReader.readAsDataURL(imgFile.files[0]);
+  fileReader.addEventListener("load", AddCard);
+}
+  
+function likeActive(event) {
+  event.toElement.classList.toggle ("card__like_mode_unactive");
+  event.toElement.classList.toggle ("card__like_mode_active");
+}
+  
+function destroyEl (event) {
+  event.toElement.parentElement.remove();
+}
+  
+function del () {
+  for (let i =0; i < deleteButton.length; i++) {
+    deleteButton[i].addEventListener('click', destroyEl);
+  }
+}
+  
+function delButtonHide(event) {
+  if (event.isTrusted === true) {
+    event.fromElement.parentElement.querySelector('.card__delete').className = 'card__delete';
+    event.fromElement.parentElement.querySelector('.card__delete').classList.add ('card__delete_display_hide');
+  } 
+}
+  
+function delButtonShow(event) {
+  if (event.isTrusted === true) {
+    event.toElement.parentElement.querySelector('.card__delete').className = 'card__delete';
+    event.toElement.parentElement.querySelector('.card__delete').classList.add ('card__delete_display_show');    
+  } 
+}
+  
+function delButton () { 
+  for (let i =0; i < img.length; i++) {
+    img[i].addEventListener('mouseover', delButtonShow);
+    img[i].addEventListener('mouseout', delButtonHide);
+  }
+  for (let i =0; i < cardTitle.length; i++) {
+    cardTitle[i].addEventListener('mouseover', delButtonShow);
+    cardTitle[i].addEventListener('mouseout', delButtonHide);
+  }
+  for (let i =0; i < likeButtons.length; i++) {
+    likeButtons[i].addEventListener('mouseover', delButtonShow);
+    likeButtons[i].addEventListener('mouseout', delButtonHide);
+  }
+  for (let i =0; i < deleteButton.length; i++) {
+    deleteButton[i].addEventListener('mouseover', delButtonShow);
+    deleteButton[i].addEventListener('mouseout', delButtonHide);
+  }
+} 
+
+  
+delButton();
+del();
+like();
+addButton.addEventListener('click', formAddOpen);
+formAddCard.addEventListener('submit', formAddSubmitHandler);
+closeAddButton.addEventListener('click', formAddClose);  */
