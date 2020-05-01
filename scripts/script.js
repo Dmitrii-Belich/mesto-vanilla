@@ -58,7 +58,6 @@ function destroyEl (event) {
 }
 
 function likeSwitch (evt) {
-  evt.target.classList.toggle ("card__like_mode_unactive");
   evt.target.classList.toggle ("card__like_mode_active");
 }
 // Чтобы не засорять экран мусорками =)
