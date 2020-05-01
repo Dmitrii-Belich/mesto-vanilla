@@ -27,24 +27,34 @@
 
     <div class="popup popup_display_hidden">
       <form class="popup__container">
-        <h2 class="popup__title"></h2>
-        <input type="text" class="popup__input" name="first" required>
-        <input type="text" class="popup__input" name="second" required>
-        <input type="submit" class="popup__save">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__input" name="name" required maxlength="30">
+        <input type="text" class="popup__input" name="job" required maxlength="40">
+        <input type="submit" class="popup__save" value="Сохранить">
         <button type="button" class="popup__exit-button"></button>
       </form>
       <div class="popup__overlay"></div>
     </div>
-    <template id="cardOpen">
-      <div class="popup popup_display_hidden">
-        <div class="popup__image-container">
-          <img src="" alt="Изображение карточки" class="popup__image">
-          <h2 class="popup__image-title"></h2>
-          <button class="popup__exit-button"></button>
-        </div>
-        <div class="popup__overlay"></div>
+
+    <div class="popup popup_display_hidden">
+      <form class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <input type="text" class="popup__input" name="title" required placeholder="Название">
+        <input type="url" class="popup__input" pattern=".+\.(jpg|png)" name="url" required placeholder="Ссылка на картинку">
+        <input type="submit" class="popup__save" value="Создать">
+        <button type="button" class="popup__exit-button"></button>
+      </form>
+      <div class="popup__overlay"></div>
+    </div>
+
+    <div class="popup popup_display_hidden">
+      <div class="popup__image-container">
+        <img src="" alt="Изображение карточки" class="popup__image">
+        <h2 class="popup__image-title"></h2>
+        <button class="popup__exit-button"></button>
       </div>
-    </template>
+      <div class="popup__overlay"></div>
+    </div>
 
     <section class="card__container">
       <template id="card">
