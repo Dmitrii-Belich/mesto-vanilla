@@ -44,13 +44,13 @@ const initialCards = [
 function createCard (card) {
   const newCard = cardTemplate.cloneNode(true);
   const newCardImage = newCard.querySelector('.card__image');
-  newCardImage.src = card.link;
   const newCardTitle = newCard.querySelector('.card__title');
+  const newCardLike = newCard.querySelector('.card__like');
+  const newCardDelete = newCard.querySelector('.card__delete');
+  newCardImage.src = card.link;
   newCardTitle.textContent = card.name;
   newCardImage.addEventListener('click', openCard);
-  const newCardLike = newCard.querySelector('.card__like');
   newCardLike.addEventListener('click', likeSwitch);
-  const newCardDelete = newCard.querySelector('.card__delete');
   newCardDelete.addEventListener('click', destroyEl);
   Array.from(newCard.lastElementChild.children).forEach(function (item) {
     item.addEventListener('mouseover', delButtonShow);
