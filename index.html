@@ -25,65 +25,36 @@
       <button class="profile__add-button"></button>
     </section>
 
-    <div class="popup popup_button_edit popup_display_hidden">
+    <div class="popup popup_display_hidden">
       <form class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup_input__el_name" name="name" required maxlength="40">
-        <input type="text" class="popup__input popup_input__el_subtitle" name="subtitle" required maxlength="30">
-        <input type="submit" class="popup__save" value="Сохранить">
+        <h2 class="popup__title"></h2>
+        <input type="text" class="popup__input" name="first" required>
+        <input type="text" class="popup__input" name="second" required>
+        <input type="submit" class="popup__save">
         <button type="button" class="popup__exit-button"></button>
       </form>
       <div class="popup__overlay"></div>
     </div>
-
-    <div class="popup popup_button_add popup_display_hidden">
-      <form class="popup__container">
-        <h2 class="popup__title">Добавить место</h2>
-        <input type="text" class="popup__input popup__input_el_title" name="title" placeholder="Название места" required>
-        <input type="file" class="popup__input popup__input_el_image" name="image" accept="image/jpeg , image/png" required>
-        <input type="submit" class="popup__save" value="Добавить">
-        <button type="button" class="popup__exit-button"></button>
-      </form>
-      <div class="popup__overlay"></div>
-    </div>
+    <template id="cardOpen">
+      <div class="popup popup_display_hidden">
+        <div class="popup__image-container">
+          <img src="" alt="Изображение карточки" class="popup__image">
+          <h2 class="popup__image-title"></h2>
+          <button class="popup__exit-button"></button>
+        </div>
+        <div class="popup__overlay"></div>
+      </div>
+    </template>
 
     <section class="card__container">
-      <div class="card">
-        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Изображение карточки" class="card__image">
-        <h2 class="card__title">Карачаевск</h2>
-        <button class="card__like card__like_mode_unactive"></button>
-        <button class="card__delete card__delete_display_hide"></button>
-      </div>
-      <div class="card">
-        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Изображение карточки" class="card__image">
-        <h2 class="card__title">Гора Эльбрус</h2>
-        <button class="card__like card__like_mode_unactive"></button>
-        <button class="card__delete card__delete_display_hide"></button>
-      </div>
-      <div class="card">
-        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Изображение карточки" class="card__image">
-        <h2 class="card__title">Домбай</h2>
-        <button class="card__like card__like_mode_unactive"></button>
-        <button class="card__delete card__delete_display_hide"></button>
-      </div>
-      <div class="card">
-        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Изображение карточки" class="card__image">
-        <h2 class="card__title">Гора Эльбрус</h2>
-        <button class="card__like card__like_mode_unactive"></button>
-        <button class="card__delete card__delete_display_hide"></button>
-      </div>
-      <div class="card">
-        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Изображение карточки" class="card__image">
-        <h2 class="card__title">Домбай</h2>
-        <button class="card__like card__like_mode_unactive"></button>
-        <button class="card__delete card__delete_display_hide"></button>
-      </div>
-      <div class="card">
-        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Изображение карточки" class="card__image">
-        <h2 class="card__title">Карачаево-Ч...</h2>
-        <button class="card__like card__like_mode_unactive"></button>
-        <button class="card__delete card__delete_display_hide"></button>
-      </div>
+      <template id="card">
+        <div class="card">
+          <img alt="Изображение карточки" class="card__image">
+          <h2 class="card__title"></h2>
+          <button class="card__like card__like_mode_unactive"></button>
+          <button class="card__delete card__delete_display_hide"></button>
+        </div>
+      </template>
     </section>
   </main>
 
@@ -91,6 +62,5 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
   <script src="./scripts/script.js"></script>
-  <script src="./scripts/script-excess.js"></script>
 </body>
 </html>

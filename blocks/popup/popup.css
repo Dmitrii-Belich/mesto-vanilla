@@ -6,8 +6,9 @@
 @import url(./_display/popup_display_hidden.css);
 @import url(./_display/popup_display_opened.css);
 @import url(./__exit-button/popup__exit-button.css);
-@import url(./_button/popup_button_add.css);
-@import url(./_button/popup_button_edit.css);
+@import url(./__image/popup__image.css);
+@import url(./__image-container/popup__image-container.css);
+@import url(./__image-title/popup__image-title.css);
 
 .popup {
   position: fixed;
@@ -18,4 +19,5 @@
   z-index: 1;
   justify-content: center;
   align-items: center;
+  display: flex;
 }
