@@ -103,7 +103,6 @@ function formEditSubmitHandler (evt) {
 }
 
 function addPopupOpen () {
-  console.log('tutu')
   popupTitle.textContent = 'Новое место';
   first.setAttribute('placeholder' , 'Название');
   second.setAttribute('placeholder' , 'Ссылка на картинку');
@@ -150,8 +149,6 @@ function popupClose () {
 
 function openCard (evt) {
   const cardOpen = cardOpenTemplate.cloneNode(true);
-  console.log(evt);
-  console.log(evt.target);
   cardOpen.querySelector('.popup__image-title').textContent = evt.target.parentElement.querySelector('.card__title').textContent;
   cardOpen.querySelector('.popup__image').src = evt.target.src;
   cardOpen.querySelector('.popup__exit-button').addEventListener('click', cardClose);
