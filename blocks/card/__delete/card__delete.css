@@ -1,6 +1,3 @@
-@import url(./_display/card__delete_display_hide.css);
-@import url(./_display/card__delete_display_show.css);
-
 .card__delete {
   position: absolute;
   top: 20px;
@@ -13,6 +10,7 @@
   outline: none;
   border: none;
   background: url(../../../images/Trash.svg) no-repeat center/100%;
+  opacity: 0;
 }
 
 .card__delete:hover {

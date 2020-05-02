@@ -3,6 +3,8 @@
 @import url(./__title/card__title.css);
 @import url(./__delete/card__delete.css);
 @import url(./__container/card__container.css);
+@import url(./__delete/_display/card__delete_display_show.css);
+@import url(./__like/_mode/card__like_mode_active.css);
 
 .card {
   background-color: #fff;
