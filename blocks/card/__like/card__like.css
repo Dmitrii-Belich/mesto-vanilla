@@ -1,5 +1,4 @@
-@import url(./_mode/card__like_mode_unactive.css);
-@import url(./_mode/card__like_mode_active.css);
+
 
 .card__like {
   display: block;
@@ -13,6 +12,7 @@
   margin: 0;
   outline: none;
   border: none;
+  background: url(../../../../images/like.svg) no-repeat center/100%;
 }
 
 .card__like:hover {
