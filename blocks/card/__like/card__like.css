@@ -12,7 +12,7 @@
   margin: 0;
   outline: none;
   border: none;
-  background: url(../../../../images/like.svg) no-repeat center/100%;
+  background: url(../../../images/like.svg) no-repeat center/100%;
 }
 
 .card__like:hover {
