@@ -10,11 +10,9 @@
   outline: none;
   border: none;
   background: url(../../../images/Trash.svg) no-repeat center/100%;
-  opacity: 0;
+  opacity: 1;
 }
 
 .card__delete:hover {
-  transform: scale(1.15);
-  background-image: url(../../../images/TrashOpen.svg);
-  /* Так ведь красивее=) */
+  opacity: .6;
 }
