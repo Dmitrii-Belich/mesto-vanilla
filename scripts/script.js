@@ -47,7 +47,6 @@ function editPopupOpen () {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
   popupOpen (popupEdit);
-  formEdit.addEventListener('submit', formEditSubmitHandler);
 }
 
 function formEditSubmitHandler (evt) {
@@ -67,7 +66,6 @@ function formEditSubmitHandler (evt) {
 
 function addPopupOpen () {
   popupOpen(popupAdd);
-  formAdd.addEventListener('submit', formAddSubmitHandler);
 } 
 
 function formAddSubmitHandler (evt) {
@@ -119,4 +117,6 @@ addButton.addEventListener('click', addPopupOpen);
 exit.forEach(function (item) { 
   item.addEventListener('click', popupClose) 
 }); 
+formEdit.addEventListener('submit', formEditSubmitHandler);
+formAdd.addEventListener('submit', formAddSubmitHandler);
 
