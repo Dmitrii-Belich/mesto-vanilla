@@ -16,49 +16,19 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const cardTemplate = document.querySelector('#card').content;
 const cardContainer = document.querySelector('.card__container');
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
-function createCard (card) {
+function createCard (name, link) {
   const newCard = cardTemplate.cloneNode(true);
   const newCardImage = newCard.querySelector('.card__image');
   const newCardTitle = newCard.querySelector('.card__title');
   const newCardLike = newCard.querySelector('.card__like');
   const newCardDelete = newCard.querySelector('.card__delete');
-  newCardImage.src = card.link;
-  newCardTitle.textContent = card.name;
+  newCardImage.src = link;
+  newCardTitle.textContent = name;
   newCardImage.addEventListener('click', openCard);
   newCardLike.addEventListener('click', likeSwitch);
   newCardDelete.addEventListener('click', destroyEl);
-  Array.from(newCard.lastElementChild.children).forEach(function (item) {
-    item.addEventListener('mouseover', delButtonShow);
-    item.addEventListener('mouseout', delButtonHide);
-  });
-  cardContainer.prepend(newCard);
+  return newCard;
 }
 
 function destroyEl (evt) {
@@ -68,16 +38,10 @@ function destroyEl (evt) {
 function likeSwitch (evt) {
   evt.target.classList.toggle ("card__like_mode_active");
 }
-
-function delButtonHide(evt) {
-  const deleteHide = evt.target.parentElement.querySelector('.card__delete');
-  deleteHide.classList.remove ('card__delete_display_show');  
-}
-  
-function delButtonShow(evt) {
-  const deleteShow =  evt.target.parentElement.querySelector('.card__delete');
-  deleteShow.classList.add ('card__delete_display_show');    
-}
+/* Я не знаю как нормально реализовать отображение корзины
+   при наведении на другие блоки через CSS,
+   поэтому оставил ее статичной. В ТЗ не было указания скрывать её,
+   а последняя попытка не время для эксперементов. */
   
 function editPopupOpen () {
   nameInput.value = name.textContent;
@@ -98,7 +62,7 @@ function formEditSubmitHandler (evt) {
   } else {
     name.classList.add('profile__name_size_m');
   }
-  popupClose(evt);
+  popupClose(popupEdit);
 }
 
 function addPopupOpen () {
@@ -108,34 +72,37 @@ function addPopupOpen () {
 
 function formAddSubmitHandler (evt) {
   evt.preventDefault();
-  let card = {
-    name: '',
-    link: ''
-  }
-  card.name = titleInput.value;
-  let img = document.createElement('img');
+  const cardName = titleInput.value;
+  let cardLink = urlInput.value;
+  const img = document.createElement('img');
   img.src = urlInput.value;
-  img.onerror =  function () {
-    cardContainer.firstElementChild.querySelector('.card__image').src = './images/imageError.jpg'
+  img.onload =  function () {
+    cardContainer.prepend(createCard(cardName, cardLink));
   } 
-  card.link = urlInput.value;
-  createCard(card);
-  popupClose(evt);
+  img.onerror =  function () {
+    cardLink = './images/imageError.jpg';
+    cardContainer.prepend(createCard(cardName, cardLink));
+  } 
+  /* Если передавать значение в создающуюся карточку, 
+  то она создается до того, как определится результат проверки.
+  Я не знаю, как побороть эту асинхронность, 
+  кроме того, как заставить создание карточки ждать определенное время,
+  или добавить две проверки. */
+  popupClose(popupAdd);
 }
 
 function popupOpen (popup) {
   popup.classList.add ('popup_display_opened');
 }
 
-function popupClose (evt) {
-  evt.target.closest('.popup').classList.remove ('popup_display_opened');
-  setTimeout(() => {
-    formEdit.reset();
-    formAdd.reset();
-  }, 200);
-  formEdit.removeEventListener('submit', formEditSubmitHandler);
-  formAdd.removeEventListener('submit', formAddSubmitHandler);
- 
+function popupClose (popup) {
+  popup = popup.target ? popup.target : popup ;
+  popup.closest('.popup').classList.remove ('popup_display_opened');
+  if (popup.closest('.popup__container')) {
+    setTimeout(() => {popup.closest('.popup__container').reset()}, 200);
+  }  else if (popup.querySelector('.popup__container')) {
+    setTimeout(() => {popup.querySelector('.popup__container').reset()}, 200);
+  }
 }
 
 function openCard (evt) {
@@ -144,10 +111,12 @@ function openCard (evt) {
   popupTitle.textContent = evt.target.nextElementSibling.textContent;
 }
 
-initialCards.forEach(createCard);
+initialCards.forEach(function (item) {
+  cardContainer.append(createCard(item.name, item.link));
+});
 editButton.addEventListener('click', editPopupOpen);
 addButton.addEventListener('click', addPopupOpen);
-exit.forEach(function (item) {
-  item.addEventListener('click', popupClose)
-});
+exit.forEach(function (item) { 
+  item.addEventListener('click', popupClose) 
+}); 
 
