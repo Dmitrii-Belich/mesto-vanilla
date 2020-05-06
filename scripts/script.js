@@ -32,16 +32,19 @@ function createCard (name, link) {
 }
 
 function destroyEl (evt) {
-  evt.target.parentElement.remove();
+  const card = evt.target.parentElement;
+  const cardImage = card.querySelector('.card__image');
+  const cardLike = card.querySelector('.card__like');
+  const cardDelete = card.querySelector('.card__delete');  
+  cardImage.removeEventListener('click', openCard);
+  cardLike.removeEventListener('click', likeSwitch);
+  cardDelete .removeEventListener('click', destroyEl);
+  card.remove();
 }
 
 function likeSwitch (evt) {
   evt.target.classList.toggle ("card__like_mode_active");
 }
-/* Я не знаю как нормально реализовать отображение корзины
-   при наведении на другие блоки через CSS,
-   поэтому оставил ее статичной. В ТЗ не было указания скрывать её,
-   а последняя попытка не время для эксперементов. */
   
 function editPopupOpen () {
   nameInput.value = name.textContent;
@@ -61,6 +64,7 @@ function formEditSubmitHandler (evt) {
   } else {
     name.classList.add('profile__name_size_m');
   }
+  setTimeout(() => {evt.target.reset()}, 200);
   popupClose(popupEdit);
 }
 
@@ -81,11 +85,7 @@ function formAddSubmitHandler (evt) {
     cardLink = './images/imageError.jpg';
     cardContainer.prepend(createCard(cardName, cardLink));
   } 
-  /* Если передавать значение в создающуюся карточку, 
-  то она создается до того, как определится результат проверки.
-  Я не знаю, как побороть эту асинхронность, 
-  кроме того, как заставить создание карточки ждать определенное время,
-  или добавить две проверки. */
+  setTimeout(() => {evt.target.reset()}, 200);
   popupClose(popupAdd);
 }
 
@@ -94,13 +94,7 @@ function popupOpen (popup) {
 }
 
 function popupClose (popup) {
-  popup = popup.target ? popup.target : popup ;
-  popup.closest('.popup').classList.remove ('popup_display_opened');
-  if (popup.closest('.popup__container')) {
-    setTimeout(() => {popup.closest('.popup__container').reset()}, 200);
-  }  else if (popup.querySelector('.popup__container')) {
-    setTimeout(() => {popup.querySelector('.popup__container').reset()}, 200);
-  }
+  popup.classList.remove ('popup_display_opened');
 }
 
 function openCard (evt) {
@@ -115,7 +109,7 @@ initialCards.forEach(function (item) {
 editButton.addEventListener('click', editPopupOpen);
 addButton.addEventListener('click', addPopupOpen);
 exit.forEach(function (item) { 
-  item.addEventListener('click', popupClose) 
+  item.addEventListener('click', (evt) => {popupClose(evt.target.closest('.popup'))}); 
 }); 
 formEdit.addEventListener('submit', formEditSubmitHandler);
 formAdd.addEventListener('submit', formAddSubmitHandler);
