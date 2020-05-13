@@ -1,5 +1,5 @@
 .popup__save {
-  margin: 47px auto 36px;
+  margin: auto auto 36px;
   width: 358px;
   background-color: black;
   color: #fff;
@@ -11,6 +11,7 @@
   text-align: center;
   outline: none;
   transition: all linear .2s;
+  cursor: pointer;
 }
 
 .popup__save:hover {

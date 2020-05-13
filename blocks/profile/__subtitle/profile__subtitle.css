@@ -4,6 +4,10 @@
   line-height: 22px;
   justify-self: flex-end;
   margin: 11px 0 9px 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 550px;
 }
 
 

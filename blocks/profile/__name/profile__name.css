@@ -5,4 +5,8 @@
 .profile__name {
   font-style: normal;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500px;
 }
