@@ -28,13 +28,30 @@ function checkInputValidity (formElement, inputElement, inputErrorClass, errorCl
   }
 };
 
-function setEventListeners (formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) {
-  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-  const buttonElement = formElement.querySelector(submitButtonSelector);
+function hasInvalidInput (inputList) {
+  return inputList.some((input) => {
+    return !input.validity.valid;
+  })
+}
+
+function toggleButtonState (inputList, buttonElement, inactiveButtonClass, needDefault) {
+  const condition = typeof needDefault === 'undefined' ? !hasInvalidInput(inputList) : needDefault;
+  if (condition) {
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.removeAttribute("disabled", "");
+  } else {
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.setAttribute("disabled", "");
+  }
+}
+
+function setEventListeners (formElement, config) {
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
-      toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+      checkInputValidity(formElement, inputElement, config.inputErrorClass, config.errorClass);
+      toggleButtonState(inputList, buttonElement,  config.inactiveButtonClass);
     });
   });
 };
@@ -42,22 +59,8 @@ function setEventListeners (formElement, inputSelector, submitButtonSelector, in
 function enableValidation (config) {
  const formList = Array.from(document.forms);
    formList.forEach((formElement) => {
-      setEventListeners(formElement, config.inputSelector, config.submitButtonSelector, config.inactiveButtonClass, config.inputErrorClass, config.errorClass);
+      setEventListeners(formElement, config);
   });
 };
-
-function hasInvalidInput (inputList) {
-  return inputList.some((input) => {
-    return !input.validity.valid;
-  })
-}
-
-function toggleButtonState (inputList, buttonElement, inactiveButtonClass) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass)
-  } else {
-    buttonElement.classList.remove(inactiveButtonClass)
-  }
-}
 
 enableValidation(config);
