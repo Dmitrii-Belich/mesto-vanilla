@@ -7,7 +7,7 @@ const popupImage = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('.popup__image-title')
 const formAdd = document.forms.add;
 const formEdit = document.forms.edit;
-const nameInput = document.querySelector('input[name="name"]');
+const nameInput = document.querySelector('input[name="forename"]');
 const jobInput = document.querySelector('input[name="job"]');
 const titleInput = document.querySelector('input[name="title"]');
 const urlInput = document.querySelector('input[name="url"]');
@@ -19,18 +19,49 @@ const cardContainer = document.querySelector('.card__container');
 const overlays = document.querySelectorAll('.popup__overlay');
 const popups = document.querySelectorAll('.popup');
 
-function createCard (name, link) {
-  const newCard = cardTemplate.cloneNode(true);
-  const newCardImage = newCard.querySelector('.card__image');
-  const newCardTitle = newCard.querySelector('.card__title');
-  const newCardLike = newCard.querySelector('.card__like');
-  const newCardDelete = newCard.querySelector('.card__delete');
-  newCardImage.src = link;
-  newCardTitle.textContent = name;
-  newCardImage.addEventListener('click', openCard);
-  newCardLike.addEventListener('click', likeSwitch);
-  newCardDelete.addEventListener('click', destroyEl);
-  return newCard;
+//В прошлой версии, если отправить картинку, и открыть форму заново,
+//кнопка была активной. Также если удалить имя, и открыть форму заново, 
+//была видна ошибка и кнопка была неактивной.
+function setDefault (formElement) {
+  const buttonElement = formElement.querySelector('.popup__save');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  if (formElement.name === 'add') {
+    toggleButtonState (inputList, buttonElement, config.inactiveButtonClass, false);
+  } 
+  if (formElement.name === 'edit') {
+    inputList.forEach ( (inputElement) => {
+      hideInputError (formElement, inputElement, config.inputErrorClass, config.errorClass);
+    });
+    toggleButtonState (inputList, buttonElement, config.inactiveButtonClass, true);
+  }
+
+}
+
+function resetForm (form) {
+  setTimeout(() => {form.reset()}, 200);
+}
+
+function popupClose (popup) {
+  popup.classList.remove ('popup_display_opened');
+  document.removeEventListener('keydown', pressEsc);
+  const form = popup.querySelector('.popup__container');
+  if (form) {
+  resetForm(form);
+  setDefault(form);
+  }
+}
+
+function pressEsc (evt) {
+  if (evt.key === 'Escape') {
+    popups.forEach((popup) => {
+      popupClose(popup);
+    })
+  }
+}
+
+function popupOpen (popup) {
+  popup.classList.add ('popup_display_opened');
+  document.addEventListener('keydown', pressEsc);
 }
 
 function openCard (evt) {
@@ -54,25 +85,20 @@ function likeSwitch (evt) {
   evt.target.classList.toggle ("card__like_mode_active");
 }
 
-function popupOpen (popup) {
-  popup.classList.add ('popup_display_opened');
-  document.addEventListener('keydown', pressEsc);
+function createCard (name, link) {
+  const newCard = cardTemplate.cloneNode(true);
+  const newCardImage = newCard.querySelector('.card__image');
+  const newCardTitle = newCard.querySelector('.card__title');
+  const newCardLike = newCard.querySelector('.card__like');
+  const newCardDelete = newCard.querySelector('.card__delete');
+  newCardImage.src = link;
+  newCardTitle.textContent = name;
+  newCardImage.addEventListener('click', openCard);
+  newCardLike.addEventListener('click', likeSwitch);
+  newCardDelete.addEventListener('click', destroyEl);
+  return newCard;
 }
 
-function pressEsc (evt) {
-  if (evt.key === 'Escape') {
-    popups.forEach((popup) => {
-      popupClose(popup);
-    })
-  }
-}
-
-function popupClose (popup) {
-  popup.classList.remove ('popup_display_opened');
-  document.removeEventListener('keydown', pressEsc);
-}
-
-  
 function editPopupOpen () {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
@@ -95,7 +121,7 @@ function formEditSubmitHandler (evt) {
   } else {
     name.classList.add('profile__name_size_m');
   }
-  resetForm(evt);
+  resetForm(evt.target);
   popupClose(popupEdit);
 }
 
@@ -112,14 +138,9 @@ function formAddSubmitHandler (evt) {
     cardLink = './images/imageError.jpg';
     cardContainer.prepend(createCard(cardName, cardLink));
   } 
-  resetForm(evt);
+  resetForm(evt.target);
   popupClose(popupAdd);
 }
-
-function resetForm (evt) {
-  setTimeout(() => {evt.target.reset()}, 200);
-}
-
 
 initialCards.forEach( (item) => {
   cardContainer.append(createCard(item.name, item.link));
