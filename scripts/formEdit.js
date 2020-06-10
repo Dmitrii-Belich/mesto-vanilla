@@ -1,4 +1,4 @@
-import {popupOpen, popupClose} from './script.js'
+import {popupOpen, popupClose} from './utils.js'
 
 export const formEdit = document.forms.edit;
 const editButton = document.querySelector('.profile__edit-button');
@@ -18,14 +18,6 @@ function formEditSubmitHandler (evt) {
   evt.preventDefault();
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
-  name.className = 'profile__name';
-  if (name.textContent.length > 25) {
-    name.classList.add('profile__name_size_xs');
-  } else if (name.textContent.length > 20) {
-    name.classList.add('profile__name_size_s');
-  } else {
-    name.classList.add('profile__name_size_m');
-  }
   popupClose(popupEdit);
 }
 

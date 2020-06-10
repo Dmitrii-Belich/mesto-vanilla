@@ -1,4 +1,4 @@
-import {popupOpen} from './script.js'
+import {popupOpen} from './utils.js'
 const popupImg = document.querySelector('.popup_target_img');
 const popupImage = popupImg.querySelector('.popup__image');
 const popupTitle = popupImg.querySelector('.popup__image-title')
@@ -7,19 +7,14 @@ export class Card {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._element = this._getTemplate();
+  }
+
+  _setAttributes() {
+    this._element = document.querySelector(this._cardSelector).content.cloneNode(true);
     this._cardImage = this._element.querySelector('.card__image');
     this._cardTitle = this._element.querySelector('.card__title');
     this._cardLike = this._element.querySelector('.card__like');
     this._cardDelete = this._element.querySelector('.card__delete');
-  }
-
-  _getTemplate() {
-    const cardElement = document.querySelector(this._cardSelector).content.cloneNode(true);
-    return cardElement;
-  }
-
-  _setAttributes() {
     this._cardImage.src = this._link;
     this._cardTitle.textContent = this._name;
   }
@@ -37,6 +32,7 @@ export class Card {
   _destroyElement (evt) {
     const card = evt.target.parentElement;
     card.remove();
+    this._element = null;
   }
 
   _setEventListeners() {
