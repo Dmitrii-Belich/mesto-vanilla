@@ -1,4 +1,4 @@
-import {popupOpen, popupClose, cardContainer} from './script.js'
+import {popupOpen, popupClose, cardContainer} from './utils.js'
 import {Card} from './Card.js'
 
 export const formAdd = document.forms.add;
