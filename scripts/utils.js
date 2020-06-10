@@ -1,8 +1,8 @@
-export const cardContainer = document.querySelector('.card__container');
+import {editValidator, addValidator} from './script.js'
+
 const exit = document.querySelectorAll('.popup__exit-button');
 const overlays = document.querySelectorAll('.popup__overlay');
 const popups = document.querySelectorAll('.popup');
-
 
 function resetForm (form) {
   setTimeout(() => {form.reset()}, 200);
@@ -35,12 +35,13 @@ export function popupOpen (popup) {
   document.addEventListener('keydown', pressEsc);
 }
 
-exit.forEach(function (item) { 
+exit.forEach((item) => { 
   item.addEventListener('click', (evt) => {
     popupClose(evt.target.closest('.popup'))
   }); 
 }); 
-overlays.forEach ( (overlay) => { 
+
+overlays.forEach ((overlay) => { 
   overlay.addEventListener('click', (evt) => {
     popupClose(evt.target.closest('.popup'));
   });

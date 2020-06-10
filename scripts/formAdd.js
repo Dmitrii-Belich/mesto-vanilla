@@ -1,7 +1,8 @@
-import {popupOpen, popupClose, cardContainer} from './utils.js'
+import {popupOpen, popupClose} from './utils.js'
 import {Card} from './Card.js'
 
 export const formAdd = document.forms.add;
+export const cardContainer = document.querySelector('.card__container');
 const popupAdd = document.querySelector('.popup_target_add');
 const titleInput = document.querySelector('input[name="title"]');
 const urlInput = document.querySelector('input[name="url"]');
