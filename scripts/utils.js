@@ -9,18 +9,22 @@ function resetForm (form) {
 }
 
 export function popupClose (popup) {
+  
   popup.classList.remove ('popup_display_opened');
   document.removeEventListener('keydown', pressEsc);
   const form = popup.querySelector('.popup__container');
-  if (form) {
-    if (form.name === 'add') {
-      addValidator.setDefault(false);
-    } else if (form.name === 'edit') {
-      editValidator.setDefault(true);
+  setTimeout(() => {
+    if (form) {
+      if (form.name === 'add') {
+        addValidator.setDefault(false);
+      } else if (form.name === 'edit') {
+        editValidator.setDefault(true);
+      }
     }
+  }, 200);
   resetForm(form);
   }
-}
+
 
 function pressEsc (evt) {
   if (evt.key === 'Escape') {
