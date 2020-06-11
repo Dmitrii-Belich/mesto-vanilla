@@ -1,15 +1,19 @@
 import {popupOpen, popupClose} from './utils.js'
 import {Card} from './Card.js'
+import {FormValidator} from './FormValidator.js'
+import {config} from './data.js'
 
-export const formAdd = document.forms.add;
+const formAdd = document.forms.add;
 export const cardContainer = document.querySelector('.card__container');
 const popupAdd = document.querySelector('.popup_target_add');
 const titleInput = document.querySelector('input[name="title"]');
 const urlInput = document.querySelector('input[name="url"]');
 const addButton = document.querySelector('.profile__add-button');
+export const addValidator = new FormValidator (config, formAdd)
 
 function addPopupOpen () {
   popupOpen(popupAdd);
+  addValidator.setDefault(false);
 } 
 
 function formAddSubmitHandler (evt) {
