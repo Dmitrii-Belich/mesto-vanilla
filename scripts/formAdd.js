@@ -2,6 +2,7 @@ import {popupOpen, popupClose} from './utils.js'
 import {Card} from './Card.js'
 import {FormValidator} from './FormValidator.js'
 import {config} from './data.js'
+import ErrorImage from '../images/imageError.jpg'
 
 const formAdd = document.forms.add;
 export const cardContainer = document.querySelector('.card__container');
@@ -26,7 +27,7 @@ function formAddSubmitHandler (evt) {
     cardContainer.prepend(new Card (cardName, cardLink, '#card').getCard());
   } 
   img.onerror = () => {
-    cardLink = './images/imageError.jpg';
+    cardLink = ErrorImage;
     cardContainer.prepend(new Card (cardName, cardLink, '#card').getCard());
   } 
   popupClose(popupAdd);
