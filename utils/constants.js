@@ -5,7 +5,8 @@ import { initialCardsData, config } from "../utils/data.js";
 import { Card } from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
-
+import PopupWithImage from "../components/PopupWithImage.js";
+export const imgPopup = new PopupWithImage(".popup_target_img");
 export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 const formAdd = document.forms.add;
@@ -16,7 +17,11 @@ const profileInfo = new UserInfo({
   jobSelector: ".profile__subtitle",
 });
 initialCardsData.forEach((item) => {
-  initialCards.push(new Card(item.name, item.link, "#card").getCard());
+  initialCards.push(
+    new Card(item.name, item.link, "#card", function (link, name) {
+      imgPopup.open(link, name);
+    }).getCard()
+  );
 });
 export const addValidator = new FormValidator(config, formAdd);
 export const editValidator = new FormValidator(config, formEdit);
@@ -29,10 +34,11 @@ export const addPopup = new PopupWithForm(".popup_target_add", {
     let cardLink = this._inputValues.url;
     const img = document.createElement("img");
     img.src = cardLink;
-    console.log("submit");
     img.onload = () => {
       cardSection.addItem(
-        new Card(cardName, cardLink, "#card").getCard(),
+        new Card(cardName, cardLink, "#card", function (link, name) {
+          imgPopup.open(link, name);
+        }).getCard(),
         (item, container) => {
           container.prepend(item);
         }
@@ -41,7 +47,9 @@ export const addPopup = new PopupWithForm(".popup_target_add", {
     img.onerror = () => {
       cardLink = ErrorImage;
       cardSection.addItem(
-        new Card(cardName, cardLink, "#card").getCard(),
+        new Card(cardName, cardLink, "#card", function (link, name) {
+          imgPopup.open(link, name);
+        }).getCard(),
         (item, container) => {
           container.prepend(item);
         }

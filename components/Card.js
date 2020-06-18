@@ -1,11 +1,9 @@
-import PopupWithImage from "./PopupWithImage";
-const imgPopup = new PopupWithImage(".popup_target_img");
-
 export class Card {
-  constructor(name, link, cardSelector) {
+  constructor(name, link, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _setAttributes() {
@@ -21,7 +19,7 @@ export class Card {
   }
 
   _openCard() {
-    imgPopup.open(this._link, this._name);
+    this._handleCardClick(this._link, this._name);
   }
 
   _likeSwitch(evt) {
