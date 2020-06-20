@@ -16,6 +16,7 @@ export class Card {
     this._cardDelete = this._element.querySelector(".card__delete");
     this._cardImage.src = this._link;
     this._cardTitle.textContent = this._name;
+    this._cardImage.alt = this._name;
   }
 
   _openCard() {
