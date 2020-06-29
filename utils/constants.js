@@ -1,5 +1,4 @@
 import { FormValidator } from "../components/FormValidator.js";
-import ErrorImage from "../images/imageError.jpg";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { options, config } from "./data.js";
 import { Card } from "../components/Card.js";
@@ -11,6 +10,9 @@ export const imgPopup = new PopupWithImage(".popup_target_img");
 export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 export const avatarButton = document.querySelector(".profile__avatar-overlay");
+let cardSection = undefined;
+let currentCardId = undefined;
+let currentCard = undefined;
 const api = new Api(options);
 const formAdd = document.forms.add;
 const formEdit = document.forms.edit;
@@ -35,20 +37,26 @@ const addCard = function (data) {
           return api
             .setLike(id)
             .then((res) => {
+              if (res.ok) {
               return res.json();
+              }
+              return Promise.reject(`Ошибка: ${res.status}`);
             })
             .then((data) => {
               return Promise.resolve(data.likes.length);
-            });
+            }).catch((err) => {console.log(err)});
         } else {
           return api
             .deleteLike(id)
             .then((res) => {
-              return res.json();
+              if (res.ok) {
+                return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
             })
             .then((data) => {
               return Promise.resolve(data.likes.length);
-            });
+            }).catch((err) => {console.log(err)});;
         }
       },
       function (id, evt) {
@@ -79,18 +87,25 @@ const addPopup = new PopupWithForm(".popup_target_add", function (
     api
       .createCard({ name: cardName, link: cardLink })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+          }
+          return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then((data) => {
         console.log(data);
         addCard(data);
         this._buttonElement.textContent = "Создать";
         this.close();
+      }).catch((err) => {
+        if (err.toString().includes("Ошибка:", 0)) {this.showError(err)} else
+        {this.showError('Невозможно загрузить карточку, попробуйте снова')}
+        this._buttonElement.textContent = "Создать";
       });
   };
   img.onerror = () => {
-    /*     cardLink = ErrorImage;
-    addCard(cardName, cardLink); */
+    this.showError('Невозможно загрузить ваше изображение, попробуйте снова')
+    this._buttonElement.textContent = "Создать";
   };
 });
 
@@ -107,7 +122,10 @@ const editPopup = new PopupWithForm(".popup_target_edit", function (
       about: inputValues.job,
     })
     .then((res) => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
       profileInfo.setUserInfo({
@@ -115,6 +133,10 @@ const editPopup = new PopupWithForm(".popup_target_edit", function (
         job: data.about,
       });
       this.close();
+      this._buttonElement.textContent = "Сохранить";
+    }).catch((err) => {
+      if (err.toString().includes("Ошибка:", 0)) {this.showError(err)} else
+        {      this.showError('Невозможно загрузить данные, попробуйте снова')}
       this._buttonElement.textContent = "Сохранить";
     });
 });
@@ -129,13 +151,27 @@ export const avatarPopup = new PopupWithForm(".popup_target_avatar", function (
   api
     .setUserAvatar({ avatar: inputValues.avatar })
     .then((res) => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
+      console.log(data.errors)
+      if (data.errors) {
+        this.showError(`Невозможно загрузить данные, ${data.errors.avatar.message}, попробуйте снова`)
+        this._buttonElement.textContent = "Сохранить";
+      }else {
       profileInfo.setUserAvatar(data.avatar);
       this.close();
       this._buttonElement.textContent = "Сохранить";
-    });
+      }
+    }).catch((err) => {
+      if (err.toString().includes("Ошибка:", 0)) {this.showError(err)} else
+      {  
+      this.showError('Невозможно загрузить данные, попробуйте снова')}
+      this._buttonElement.textContent = "Сохранить";
+    })
 });
 
 export const deletePopup = new PopupWithForm(".popup_target_delete", function (
@@ -147,13 +183,21 @@ export const deletePopup = new PopupWithForm(".popup_target_delete", function (
   api
     .deleteCard(currentCardId)
     .then((res) => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
       console.log(data);
       currentCard.remove();
       this._buttonElement.textContent = "Да";
       this.close();
+    }).catch((err) => {
+      if (err.toString().includes("Ошибка:", 0)) {this.showError(err)} else
+      { 
+      this.showError('Невозможно удалить карточку, попробуйте снова')}
+      this._buttonElement.textContent = "Да";
     });
 });
 
@@ -168,19 +212,16 @@ export const addPopupOpen = function () {
   addValidator.setDefault(false);
   addPopup.open();
 };
-
 export const avatarPopupOpen = function () {
   avatarValidator.setDefault(false);
   avatarPopup.open();
 };
 
-let cardSection = undefined;
-let currentCardId = undefined;
-let currentCard = undefined;
-api
-  .getInitialCards()
-  .then((res) => {
+api.getInitialCards().then((res) => {
+  if (res.ok) {
     return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
   .then((data) => {
     cardSection = new Section(
@@ -198,20 +239,26 @@ api
                 return api
                   .setLike(id)
                   .then((res) => {
-                    return res.json();
+                    if (res.ok) {
+                      return res.json();
+                      }
+                      return Promise.reject(`Ошибка: ${res.status}`);
                   })
                   .then((data) => {
                     return Promise.resolve(data.likes.length);
-                  });
+                  }).catch((err) => {console.log(err)});
               } else {
                 return api
                   .deleteLike(id)
                   .then((res) => {
-                    return res.json();
+                    if (res.ok) {
+                      return res.json();
+                      }
+                      return Promise.reject(`Ошибка: ${res.status}`);
                   })
                   .then((data) => {
                     return Promise.resolve(data.likes.length);
-                  });
+                  }).catch((err) => {console.log(err)});
               }
             },
             function (id, evt) {
@@ -226,13 +273,18 @@ api
       ".card__container"
     );
     cardSection.renderItems();
-  });
+  }).catch((err)=>{if (err.toString().includes("Ошибка:", 0)) {console.log(err)} else
+  {console.log('Не удалось загрузить карточки')}});
 api
   .getUserInformation()
   .then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+      }
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
   .then((data) => {
     profileInfo.setUserInfo({ name: data.name, job: data.about });
     profileInfo.setUserAvatar(data.avatar);
-  });
+  }).catch(() => {if (err.toString().includes("Ошибка:", 0)) {console.log(err)} else
+  { profileInfo.setUserInfo({ name: 'Не удалось загрузить данные', job: 'Не удалось загрузить данные' })};});

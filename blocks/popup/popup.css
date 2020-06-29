@@ -14,6 +14,8 @@
 @import url(./__input-error/_display/popup__input-error_display_show.css);
 @import url(./__input/_display/popup__input_display_error.css);
 @import url(./__save/_display/popup__save_display_error.css);
+@import url(./__form-error/popup__form-error.css);
+@import url(./__form-error/_display/popup__form-error_display_visible.css);
 
 .popup {
   position: fixed;
