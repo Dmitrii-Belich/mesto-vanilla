@@ -5,13 +5,15 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._formSubmitHandler = formSubmitHandler;
   }
+
   close() {
     super.close();
     setTimeout(() => {
       this._form.reset();
-      this.hideError()
+      this.hideError();
     }, 200);
   }
+
   _getInputValues() {
     const inputValues = {};
     const inputs = Array.from(this._popupElement.querySelectorAll("input"));
@@ -20,6 +22,7 @@ export default class PopupWithForm extends Popup {
     });
     return inputValues;
   }
+
   _setEventListeners() {
     super._setEventListeners();
     this._errorElement = this._popupElement.querySelector(".popup__form-error");
@@ -29,16 +32,19 @@ export default class PopupWithForm extends Popup {
     };
     this._form.addEventListener("submit", this._formHandler);
   }
+
   _removeEventListeners() {
     super._removeEventListeners();
     this._form.removeEventListener("submit", this._formHandler);
   }
+
   showError(text) {
     this._errorElement.textContent = text;
-    this._errorElement.classList.add('popup__form-error_display_visible')
+    this._errorElement.classList.add("popup__form-error_display_visible");
   }
+  
   hideError() {
-    this._errorElement.textContent = '';
-    this._errorElement.classList.remove('popup__form-error_display_visible')
+    this._errorElement.textContent = "";
+    this._errorElement.classList.remove("popup__form-error_display_visible");
   }
 }

@@ -1,5 +1,11 @@
 export class Card {
-  constructor(cardData, cardSelector, handleCardClick, likeRenderer, deleteRenderer) {
+  constructor(
+    cardData,
+    cardSelector,
+    handleCardClick,
+    likeRenderer,
+    deleteRenderer
+  ) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
@@ -25,11 +31,15 @@ export class Card {
     this._cardTitle.textContent = this._name;
     this._cardImage.alt = this._name;
     this._cardLikeCount.textContent = this._likeConunt;
-    if (this._likes.some((item) => {return item._id === 'b93f5f7a5c6ac4656761436b'})) {
+    if (
+      this._likes.some((item) => {
+        return item._id === "b93f5f7a5c6ac4656761436b";
+      })
+    ) {
       this._cardLike.classList.add("card__like_mode_active");
     }
-    if (this._cardOwner !== 'b93f5f7a5c6ac4656761436b') {
-      this._cardDelete.remove()
+    if (this._cardOwner !== "b93f5f7a5c6ac4656761436b") {
+      this._cardDelete.remove();
     }
   }
 
@@ -38,17 +48,14 @@ export class Card {
   }
 
   _likeSwitch(evt) {
-    this._likeRenderer(this._cardId, evt).then((likeCount)=> {
-    this._cardLikeCount.textContent = likeCount;
-    evt.target.classList.toggle("card__like_mode_active");
-  })
+    this._likeRenderer(this._cardId, evt).then((likeCount) => {
+      this._cardLikeCount.textContent = likeCount;
+      evt.target.classList.toggle("card__like_mode_active");
+    });
   }
 
   _destroyElement(evt) {
-    this._deleteRenderer(this._cardId, evt)
-    /* const card = evt.target.parentElement;
-    card.remove();
-    this._element = null; */
+    this._deleteRenderer(this._cardId, evt);
   }
 
   _setEventListeners() {
@@ -58,11 +65,11 @@ export class Card {
     this._cardLike.addEventListener("click", (evt) => {
       this._likeSwitch(evt);
     });
-    if(this._cardDelete) {
-    this._cardDelete.addEventListener("click", (evt) => {
-      this._destroyElement(evt);
-    });
-  }
+    if (this._cardDelete) {
+      this._cardDelete.addEventListener("click", (evt) => {
+        this._destroyElement(evt);
+      });
+    }
   }
 
   _generateCard() {

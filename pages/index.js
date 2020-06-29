@@ -8,10 +8,11 @@ import {
   addPopupOpen,
   avatarValidator,
   avatarButton,
-  avatarPopupOpen
+  avatarPopupOpen,
+  initialRender,
 } from "../utils/constants.js";
 
-
+initialRender();
 editValidator.enableValidation();
 addValidator.enableValidation();
 avatarValidator.enableValidation();
