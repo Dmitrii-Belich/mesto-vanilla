@@ -90,7 +90,6 @@ const addPopup = new PopupWithForm(".popup_target_add", function (evt, inputValu
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then((data) => {
-        console.log(data);
         addCard(data);
         this._buttonElement.textContent = "Создать";
         this.close();
@@ -154,7 +153,6 @@ const avatarPopup = new PopupWithForm(".popup_target_avatar", function (evt, inp
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      console.log(data.errors);
       if (data.errors) {
         this.showError(
           `Невозможно загрузить данные, ${data.errors.avatar.message}, попробуйте снова`
@@ -188,7 +186,6 @@ const deletePopup = new PopupWithForm(".popup_target_delete", function (evt) {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      console.log(data);
       currentCard.remove();
       this._buttonElement.textContent = "Да";
       this.close();
