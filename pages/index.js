@@ -2,14 +2,14 @@ import "../pages/index.css";
 import {
   addButton,
   editButton,
-  cardSection,
+  initialRender,
   addValidator,
   editValidator,
   editPopupOpen,
   addPopupOpen,
 } from "../utils/constants.js";
 
-cardSection.renderItems();
+
 editValidator.enableValidation();
 addValidator.enableValidation();
 editButton.addEventListener("click", editPopupOpen);

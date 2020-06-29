@@ -1,11 +1,12 @@
 import { FormValidator } from "../components/FormValidator.js";
 import ErrorImage from "../images/imageError.jpg";
 import PopupWithForm from "../components/PopupWithForm.js";
-import { initialCardsData, config } from "./data.js";
+import { config } from "./data.js";
 import { Card } from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import Api from "../components/Api.js"
 export const imgPopup = new PopupWithImage(".popup_target_img");
 export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
@@ -59,7 +60,37 @@ const editPopup = new PopupWithForm(".popup_target_edit", function (
   this.close();
 });
 
-export const cardSection = new Section(
+
+
+export const editPopupOpen = function () {
+  const info = profileInfo.getUserInfo();
+  nameInput.value = info.name;
+  jobInput.value = info.job;
+  editValidator.setDefault(true);
+  editPopup.open();
+};
+export const addPopupOpen = function () {
+  addValidator.setDefault(false);
+  addPopup.open();
+};
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
+  headers: {
+    authorization: '10d0cab2-3de3-42ea-80c8-2e15574d2bdb',
+    'Content-Type': 'application/json',
+  }
+});
+let initialCardsData = [];
+
+export async function initialRender () {
+
+api.getInitialCards().then((res) => {return res.json()}).then((data) => {
+  initialCardsData = data;
+})
+}
+initialRender();
+const cardSection = new Section(
   {
     items: initialCardsData,
     renderer: function (item) {
@@ -74,15 +105,6 @@ export const cardSection = new Section(
   },
   ".card__container"
 );
+cardSection.renderItems(); 
 
-export const editPopupOpen = function () {
-  const info = profileInfo.getUserInfo();
-  nameInput.value = info.name;
-  jobInput.value = info.job;
-  editValidator.setDefault(true);
-  editPopup.open();
-};
-export const addPopupOpen = function () {
-  addValidator.setDefault(false);
-  addPopup.open();
-};
+
