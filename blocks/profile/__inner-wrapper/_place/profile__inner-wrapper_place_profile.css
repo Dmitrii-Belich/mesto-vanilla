@@ -1,3 +1,6 @@
+.profile__inner-wrapper_place_profile {
+  position: relative;
+}
 @media screen and (max-width: 619px) {
   .profile__inner-wrapper_place_profile {
     flex-direction: column;
