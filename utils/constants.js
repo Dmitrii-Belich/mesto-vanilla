@@ -34,23 +34,27 @@ const addCard = function (data) {
     function (link, name) {
       imgPopup.open(link, name);
     },
-    function (id, evt) {
+    function (card) {
+      const id =card.getId()
       let action = undefined;
-      if (!evt.target.classList.contains("card__like_mode_active")) {
-        action = api.setLike(id);
-      } else {
+      if (
+        this._likes.some((item) => {
+          return item._id === this._userId;
+        })) {
         action = api.deleteLike(id);
+      } else {
+        action = api.setLike(id);
       }
       return action
         .then((data) => {
-          return Promise.resolve(data.likes.length);
+          return Promise.resolve(data);
         })
         .catch((err) => {
           console.log(err);
-        });
+        }); 
     },
-    function (id) {
-      currentCardId = id;
+    function (card) {
+      currentCardId = card.getId();
       currentCard = this;
       deletePopup.open();
     }
@@ -65,7 +69,7 @@ const addPopup = new PopupWithForm(".popup_target_add", function (
   this._buttonElement = this._popupElement.querySelector(".popup__save");
   this._buttonElement.textContent = "Создание...";
   const cardName = inputValues.title;
-  let cardLink = inputValues.url;
+  const cardLink = inputValues.url;
   const img = document.createElement("img");
   img.src = cardLink;
   img.onload = () => {
@@ -206,7 +210,7 @@ const renderInitialCards = (data) => {
       items: data,
       renderer: function (item) {
         const card = addCard(item);
-        this._addInitialItem(card);
+        this.addInitialItem(card);
       },
     },
     ".card__container"

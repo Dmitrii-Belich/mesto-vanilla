@@ -21,14 +21,15 @@ export class Card {
   }
 
   _setAttributes() {
-    this._element = document
+    this._templateElement = document
       .querySelector(this._cardSelector)
       .content.cloneNode(true);
-    this._cardImage = this._element.querySelector(".card__image");
-    this._cardTitle = this._element.querySelector(".card__title");
-    this._cardLike = this._element.querySelector(".card__like");
-    this._cardLikeCount = this._element.querySelector(".card__like-count");
-    this._cardDelete = this._element.querySelector(".card__delete");
+    this._element = this._templateElement.firstElementChild;
+    this._cardImage = this._templateElement.querySelector(".card__image");
+    this._cardTitle = this._templateElement.querySelector(".card__title");
+    this._cardLike = this._templateElement.querySelector(".card__like");
+    this._cardLikeCount = this._templateElement.querySelector(".card__like-count");
+    this._cardDelete = this._templateElement.querySelector(".card__delete");
     this._cardImage.src = this._link;
     this._cardTitle.textContent = this._name;
     this._cardImage.alt = this._name;
@@ -50,21 +51,25 @@ export class Card {
   }
 
   _likeSwitch(evt) {
-    this._likeRenderer(this._cardId, evt).then((likeCount) => {
-      if (likeCount) {
-        this._cardLikeCount.textContent = likeCount;
+    this._likeRenderer(this).then((data) => {
+      if (typeof data.likes.length !== undefined) {
+        this._likes = data.likes;
+        this._cardLikeCount.textContent = data.likes.length;
         evt.target.classList.toggle("card__like_mode_active");
-      }
+      } 
     });
   }
 
-  _destroyElement(evt) {
-    this._deleteRenderer(this._cardId);
-    this._elementForDelete = evt.target.closest(".card");
+  _destroyElement() {
+    this._deleteRenderer(this);
   }
 
   deleteElement() {
-    this._elementForDelete.remove();
+    this._element.remove();
+  }
+
+  getId () {
+    return this._cardId
   }
 
   _setEventListeners() {
@@ -88,6 +93,7 @@ export class Card {
 
   getCard() {
     this._generateCard();
-    return this._element;
+
+    return this._templateElement;
   }
 }
