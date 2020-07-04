@@ -6,12 +6,10 @@ export default class PopupWithForm extends Popup {
     this._formSubmitHandler = formSubmitHandler;
   }
 
-  close() {
-    super.close();
-    setTimeout(() => {
-      this._form.reset();
-      this.hideError();
-    }, 200);
+  open() {
+    super.open();
+    this._form.reset();
+    this.hideError();
   }
 
   _getInputValues() {
@@ -42,7 +40,7 @@ export default class PopupWithForm extends Popup {
     this._errorElement.textContent = text;
     this._errorElement.classList.add("popup__form-error_display_visible");
   }
-  
+
   hideError() {
     this._errorElement.textContent = "";
     this._errorElement.classList.remove("popup__form-error_display_visible");

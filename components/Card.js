@@ -1,6 +1,7 @@
 export class Card {
   constructor(
     cardData,
+    userId,
     cardSelector,
     handleCardClick,
     likeRenderer,
@@ -16,6 +17,7 @@ export class Card {
     this._likes = cardData.likes;
     this._cardOwner = cardData.owner._id;
     this._deleteRenderer = deleteRenderer;
+    this._userId = userId;
   }
 
   _setAttributes() {
@@ -33,12 +35,12 @@ export class Card {
     this._cardLikeCount.textContent = this._likeConunt;
     if (
       this._likes.some((item) => {
-        return item._id === "b93f5f7a5c6ac4656761436b";
+        return item._id === this._userId;
       })
     ) {
       this._cardLike.classList.add("card__like_mode_active");
     }
-    if (this._cardOwner !== "b93f5f7a5c6ac4656761436b") {
+    if (this._cardOwner !== this._userId) {
       this._cardDelete.remove();
     }
   }
@@ -49,13 +51,20 @@ export class Card {
 
   _likeSwitch(evt) {
     this._likeRenderer(this._cardId, evt).then((likeCount) => {
-      this._cardLikeCount.textContent = likeCount;
-      evt.target.classList.toggle("card__like_mode_active");
+      if (likeCount) {
+        this._cardLikeCount.textContent = likeCount;
+        evt.target.classList.toggle("card__like_mode_active");
+      }
     });
   }
 
   _destroyElement(evt) {
-    this._deleteRenderer(this._cardId, evt);
+    this._deleteRenderer(this._cardId);
+    this._elementForDelete = evt.target.closest(".card");
+  }
+
+  deleteElement() {
+    this._elementForDelete.remove();
   }
 
   _setEventListeners() {

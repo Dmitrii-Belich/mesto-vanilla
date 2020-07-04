@@ -3,18 +3,18 @@ export default class Section {
     this._items = items;
     this._renderer = renderer;
     this._containerSelector = containerSelector;
+    this._container = document.querySelector(this._containerSelector);
   }
 
-  addItem(item, isInnitial = false) {
-    if (isInnitial) {
-      this._container.append(item);
-    } else {
-      this._container.prepend(item);
-    }
+  addItem(item) {
+    this._container.prepend(item);
   }
-  
+
+  _addInitialItem(item) {
+    this._container.append(item);
+  }
+
   renderItems() {
-    this._container = document.querySelector(this._containerSelector);
     this._items.forEach((item) => {
       this._renderer(item);
     });
