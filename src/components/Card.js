@@ -55,6 +55,7 @@ export class Card {
     this._cardLikeCount.textContent = count;
     this._cardLike.classList.toggle("card__like_mode_active");
     }
+    /* Спасибо большое за подробное объяснение <3 */
   }
 
   deleteElement() {
