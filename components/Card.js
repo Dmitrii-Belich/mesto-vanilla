@@ -57,32 +57,24 @@ export class Card {
     }
   }
 
-  _likeSwitch() {
-    this._likeRenderer(this);
-  }
-
-  _destroyElement() {
-    this._deleteRenderer(this);
-  }
-
   deleteElement() {
     this._element.remove();
   }
 
   getId () {
-    return this._cardId
+    return this._cardId;
   }
 
   _setEventListeners() {
     this._cardImage.addEventListener("click", () => {
       this._openCard();
     });
-    this._cardLike.addEventListener("click", (evt) => {
-      this._likeSwitch(evt);
+    this._cardLike.addEventListener("click", () => {
+      this._likeRenderer(this);;
     });
     if (this._cardDelete) {
-      this._cardDelete.addEventListener("click", (evt) => {
-        this._destroyElement(evt);
+      this._cardDelete.addEventListener("click", () => {
+        this._deleteRenderer(this);
       });
     }
   }
@@ -94,7 +86,6 @@ export class Card {
 
   getCard() {
     this._generateCard();
-
     return this._templateElement;
   }
 }

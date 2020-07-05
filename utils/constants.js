@@ -5,12 +5,11 @@ import { Card } from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Api from "../components/Api.js";
 
 let userId = undefined;
 let cardSection = undefined;
-let currentCardId = undefined;
-let currentCard = undefined;
 
 const imgPopup = new PopupWithImage(".popup_target_img");
 const api = new Api(options);
@@ -55,8 +54,7 @@ const addCard = function (data) {
         }); 
     },
     function (card) {
-      currentCardId = card.getId();
-      currentCard = this;
+      deletePopup.setItem(card)
       deletePopup.open();
     }
   ).getCard();
@@ -159,14 +157,14 @@ const avatarPopup = new PopupWithForm(".popup_target_avatar", function (
     });
 });
 
-const deletePopup = new PopupWithForm(".popup_target_delete", function (evt) {
+const deletePopup = new PopupWithConfirm(".popup_target_delete", function (evt) {
   evt.preventDefault();
   this._buttonElement = this._popupElement.querySelector(".popup__save");
   this._buttonElement.textContent = "Удаление...";
   api
-    .deleteCard(currentCardId)
+    .deleteCard(this._itemId)
     .then(() => {
-      currentCard.deleteElement();
+      this._item.deleteElement();
       this.close();
     })
     .catch((err) => {
