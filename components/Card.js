@@ -50,14 +50,15 @@ export class Card {
     this._handleCardClick(this._link, this._name);
   }
 
-  _likeSwitch(evt) {
-    this._likeRenderer(this).then((data) => {
-      if (typeof data.likes.length !== undefined) {
-        this._likes = data.likes;
-        this._cardLikeCount.textContent = data.likes.length;
-        evt.target.classList.toggle("card__like_mode_active");
-      } 
-    });
+  updateLikes(count) {
+    if (typeof count !== undefined) {
+    this._cardLikeCount.textContent = count;
+    this._cardLike.classList.toggle("card__like_mode_active");
+    }
+  }
+
+  _likeSwitch() {
+    this._likeRenderer(this);
   }
 
   _destroyElement() {

@@ -47,7 +47,8 @@ const addCard = function (data) {
       }
       return action
         .then((data) => {
-          return Promise.resolve(data);
+          card.updateLikes(data.likes.length);
+          card._likes = data.likes;
         })
         .catch((err) => {
           console.log(err);
