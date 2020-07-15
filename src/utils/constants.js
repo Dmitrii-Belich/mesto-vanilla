@@ -8,8 +8,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Api from "../components/Api.js";
 
-let userId = undefined;
-let cardSection = undefined;
+let userId;
+let cardSection;
 
 const imgPopup = new PopupWithImage(".popup_target_img");
 const api = new Api(options);
@@ -35,7 +35,7 @@ const addCard = function (data) {
     },
     function (card) {
       const id =card.getId()
-      let action = undefined;
+      let action;
       if (
         this._likes.some((item) => {
           return item._id === this._userId;
@@ -46,8 +46,7 @@ const addCard = function (data) {
       }
       return action
         .then((data) => {
-          card.updateLikes(data.likes.length);
-          card._likes = data.likes;
+          card.updateLikes(data.likes.length, data.likes);
         })
         .catch((err) => {
           console.log(err);

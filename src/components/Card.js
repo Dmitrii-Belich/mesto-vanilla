@@ -50,11 +50,10 @@ export class Card {
     this._handleCardClick(this._link, this._name);
   }
 
-  updateLikes(count) {
-    if (typeof count !== undefined) {
+  updateLikes(count, likes) {
     this._cardLikeCount.textContent = count;
     this._cardLike.classList.toggle("card__like_mode_active");
-    }
+    this._likes = likes;
   }
 
   deleteElement() {
